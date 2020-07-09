@@ -24,9 +24,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "C:/Users/HimRamesh/Desktop/edWisor/FinalProject/MeetingOrganizer-Frontend/meeting-organizer-frontend/node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "C:/Users/HimRamesh/Desktop/edWisor/FinalProject/MeetingOrganizer-Frontend/meeting-organizer-frontend/node_modules/ng2-toastr/bundles/ng2-toastr.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "C:/Users/HimRamesh/Desktop/edWisor/FinalProject/MeetingOrganizer-Frontend/meeting-organizer-frontend/node_modules/jquery/dist/jquery.min.js",
+              "C:/Users/HimRamesh/Desktop/edWisor/FinalProject/MeetingOrganizer-Frontend/meeting-organizer-frontend/node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {
