@@ -6,7 +6,7 @@ import { ResetpasswordComponent } from './resetpassword/resetpassword.component'
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastModule } from 'ng2-toastr';
+import { ToastrModule  } from 'ng6-toastr-notifications';
 
 
 @NgModule({
@@ -14,7 +14,7 @@ import { ToastModule } from 'ng2-toastr';
   imports: [
     CommonModule,
     BrowserAnimationsModule,
-    ToastModule.forRoot(),
+    ToastrModule .forRoot(),
     FormsModule,
     RouterModule.forChild([
       { path : 'signup', component : SignupComponent },

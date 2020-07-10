@@ -2,7 +2,7 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 
 import { AppService } from './../../app.service';
 import { Router } from '@angular/router';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastrManager  } from 'ng6-toastr-notifications';
 
 @Component({
   selector: 'app-signup',
@@ -23,10 +23,9 @@ export class SignupComponent implements OnInit {
   constructor(
     public appService: AppService,
     public router: Router,
-    private toastr: ToastsManager,
+    private toastr: ToastrManager ,
     vcr: ViewContainerRef
   ) {
-    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit(): void {
@@ -37,28 +36,28 @@ export class SignupComponent implements OnInit {
 
   public signUpFunction: any = () => {
     if (!this.firstName) {
-      this.toastr.warning('enter firstName')
+      this.toastr.warningToastr('enter firstName')
     }
     else if (!this.lastName) {
-      this.toastr.warning('enter lastName')
+      this.toastr.warningToastr('enter lastName')
     }
     else if (!this.email) {
-      this.toastr.warning('enter email')
+      this.toastr.warningToastr('enter email')
     }
     else if (!this.password) {
-      this.toastr.warning('enter password')
+      this.toastr.warningToastr('enter password')
     }
     else if (!this.mobileNumber) {
-      this.toastr.warning('enter mobileNumber')
+      this.toastr.warningToastr('enter mobileNumber')
     }
     else if (!this.country) {
-      this.toastr.warning('enter country')
+      this.toastr.warningToastr('enter country')
     }
     else if (!this.uniqueUserName) {
-      this.toastr.warning('enter uniqueUserName')
+      this.toastr.warningToastr('enter uniqueUserName')
     }
     else if (!this.isAdmin) {
-      this.toastr.warning('enter isAdmin')
+      this.toastr.warningToastr('enter isAdmin')
     }
     else {
       let data = {
@@ -79,7 +78,7 @@ export class SignupComponent implements OnInit {
 
           if (apiResponse.status === 200) {
 
-            this.toastr.success('Signup successful');
+            this.toastr.successToastr('Signup successful');
 
             setTimeout(() => {
 
@@ -88,12 +87,12 @@ export class SignupComponent implements OnInit {
             }, 2000);
           } else {
 
-            this.toastr.error(apiResponse.message);
+            this.toastr.errorToastr(apiResponse.message);
 
           }
         }, (err) => {
 
-          this.toastr.error('some error occured');
+          this.toastr.errorToastr('some error occured');
 
         });
     }

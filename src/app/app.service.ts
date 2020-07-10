@@ -14,7 +14,7 @@ import { HttpErrorResponse, HttpParams } from "@angular/common/http";
   providedIn: 'root'
 })
 export class AppService {
-private url : "http://localhost:3000/api/v1";
+private url : "http://localhost:3000";
 
   constructor(
     public http : HttpClient
@@ -40,20 +40,20 @@ private url : "http://localhost:3000/api/v1";
     .set('mobileNumber', data.mobileNumber)
     .set('isAdmin', data.isAdmin)
     .set('country', data.country)
-    return this.http.post(`${this.url}/user/signup`, params)
+    return this.http.post(`${this.url}/api/v1/user/signup`, params)
   } //end signUp function
 
   public login(data) : Observable<any> {
     const params = new HttpParams()
     .set('email', data.email)
     .set('password', data.password)
-    return this.http.post(`${this.url}/user/login`, params)
+    return this.http.post(`${this.url}/api/v1/user/login`, params)
   } //end login function
 
   public logout() : Observable<any> {
     const params = new HttpParams()
     .set('authToken', Cookie.get('authToken'))
-    return this.http.post(`${this.url}/logout`, params)
+    return this.http.post(`${this.url}api/v1/logout`, params)
   } //end logout function
 
 

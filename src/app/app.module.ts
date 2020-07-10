@@ -9,7 +9,7 @@ import { PlannerModule } from './planner/planner.module';
 import { LoginComponent } from './user/login/login.component';
 import { AppService } from './app.service';
 import { HttpClientModule } from '@angular/common/http';
-import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import {ToastrModule } from 'ng6-toastr-notifications';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -20,7 +20,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     BrowserModule,
     PlannerModule,
     BrowserAnimationsModule,
-    ToastModule.forRoot(),
+    ToastrModule .forRoot(),
     UserModule,
     HttpClientModule,
     RouterModule.forRoot([
