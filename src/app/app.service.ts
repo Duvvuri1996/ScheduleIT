@@ -14,12 +14,16 @@ import { HttpErrorResponse, HttpParams } from "@angular/common/http";
   providedIn: 'root'
 })
 export class AppService {
-private url : "http://localhost:3000";
+public url : "http://localhost:3000/api/v1/user";
 
   constructor(
     public http : HttpClient
   ) { }
 
+
+  public getCountryNames() : Observable<any> {
+    return this.http.get(`${this.url}/allnames`)
+  }
 
   public setUserInfoInLocalStorage = (data) => {
 
@@ -40,20 +44,20 @@ private url : "http://localhost:3000";
     .set('mobileNumber', data.mobileNumber)
     .set('isAdmin', data.isAdmin)
     .set('country', data.country)
-    return this.http.post(`${this.url}/api/v1/user/signup`, params)
+    return this.http.post(`${this.url}/signup`, params)
   } //end signUp function
 
   public login(data) : Observable<any> {
     const params = new HttpParams()
     .set('email', data.email)
     .set('password', data.password)
-    return this.http.post(`${this.url}/api/v1/user/login`, params)
+    return this.http.post(`${this.url}/login`, params)
   } //end login function
 
   public logout() : Observable<any> {
     const params = new HttpParams()
     .set('authToken', Cookie.get('authToken'))
-    return this.http.post(`${this.url}api/v1/logout`, params)
+    return this.http.post(`${this.url}/logout`, params)
   } //end logout function
 
 

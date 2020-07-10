@@ -2,7 +2,7 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 
 import { AppService } from './../../app.service';
 import { Router } from '@angular/router';
-import { ToastrManager  } from 'ng6-toastr-notifications';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 @Component({
   selector: 'app-signup',
@@ -19,17 +19,37 @@ export class SignupComponent implements OnInit {
   public mobileNumber: any;
   public isAdmin: any;
   public country: any;
+  public telCode: any;
+  public countryNames: any;
+  public countryDetails: any;
+  public countryTelcode: any;
 
   constructor(
     public appService: AppService,
     public router: Router,
-    private toastr: ToastrManager ,
+    private toastr: ToastrManager,
     vcr: ViewContainerRef
   ) {
   }
 
   ngOnInit(): void {
+    this.countryDetails = this.appService.getCountryNames().subscribe((apiResponse) => {
+      console.log(apiResponse)
+      if (apiResponse.status === 200) {
+        this.countryDetails = apiResponse.data
+        console.log(this.countryDetails)
+        return this.countryDetails
+      } else {
+        console.log("SOme error occurred while fetchin details")
+      }
+    })
+    this.countryNames = this.countryDetails.country;
+    console.log(this.countryNames);
+    this.countryTelcode = this.countryDetails.calling_code;
+    console.log(this.countryTelcode);
   }
+
+
   public goToSignIn: any = () => {
     this.router.navigate(['/'])
   }
@@ -70,6 +90,7 @@ export class SignupComponent implements OnInit {
         uniqueUserName: this.uniqueUserName,
         isAdmin: this.isAdmin
       }
+
       console.log(data)
       this.appService.signUpFunction(data)
         .subscribe((apiResponse) => {
@@ -77,7 +98,6 @@ export class SignupComponent implements OnInit {
           console.log(apiResponse);
 
           if (apiResponse.status === 200) {
-
             this.toastr.successToastr('Signup successful');
 
             setTimeout(() => {

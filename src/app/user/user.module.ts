@@ -18,7 +18,7 @@ import { ToastrModule  } from 'ng6-toastr-notifications';
     FormsModule,
     RouterModule.forChild([
       { path : 'signup', component : SignupComponent },
-      { path :'resetPassword', component : ResetpasswordComponent }
+      { path :'resetpassword', component : ResetpasswordComponent }
     ])
   ]
 })
