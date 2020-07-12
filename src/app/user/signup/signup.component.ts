@@ -19,36 +19,28 @@ export class SignupComponent implements OnInit {
   public mobileNumber: any;
   public isAdmin: any;
   public country: any;
-  public telCode: any;
-  public countryNames: any;
-  public countryDetails: any;
+  
+
+
+  public countryName: any;
   public countryTelcode: any;
+  public countryNames: any[] = [];
+  public countryTelcodes: any[];
+  public countryDetails: any;
+
+
+
 
   constructor(
     public appService: AppService,
     public router: Router,
-    private toastr: ToastrManager,
-    vcr: ViewContainerRef
+    private toastr: ToastrManager
   ) {
   }
 
   ngOnInit(): void {
-    this.countryDetails = this.appService.getCountryNames().subscribe((apiResponse) => {
-      console.log(apiResponse)
-      if (apiResponse.status === 200) {
-        this.countryDetails = apiResponse.data
-        console.log(this.countryDetails)
-        return this.countryDetails
-      } else {
-        console.log("SOme error occurred while fetchin details")
-      }
-    })
-    this.countryNames = this.countryDetails.country;
-    console.log(this.countryNames);
-    this.countryTelcode = this.countryDetails.calling_code;
-    console.log(this.countryTelcode);
-  }
 
+  }
 
   public goToSignIn: any = () => {
     this.router.navigate(['/'])
@@ -70,15 +62,10 @@ export class SignupComponent implements OnInit {
     else if (!this.mobileNumber) {
       this.toastr.warningToastr('enter mobileNumber')
     }
-    else if (!this.country) {
-      this.toastr.warningToastr('enter country')
-    }
     else if (!this.uniqueUserName) {
       this.toastr.warningToastr('enter uniqueUserName')
     }
-    else if (!this.isAdmin) {
-      this.toastr.warningToastr('enter isAdmin')
-    }
+
     else {
       let data = {
         firstName: this.firstName,
@@ -112,9 +99,41 @@ export class SignupComponent implements OnInit {
           }
         }, (err) => {
 
-          this.toastr.errorToastr('some error occured');
+          this.toastr.errorToastr('Some error occured');
+          console.log(this.countryNames)
 
         });
     }
+  } //end signupFunction
+
+  checkValue(event: any) {
+    this.isAdmin = event
+    //console.log(this.isAdmin);
   }
-} //end signupFunction
+  public onChangeOfCountry() {
+
+    this.countryTelcode = this.countryTelcodes[this.country];
+    this.countryName = this.countryDetails[this.country];
+  }
+
+  public getNames: any = () => {
+    this.appService.getCountryNames().subscribe((data) => {
+      this.countryDetails = data
+      for(let x in data){
+        let singleCountry = {
+          name : data[x],
+          code : x
+        }
+        this.countryNames.push(singleCountry)
+      }
+      this.countryNames = this.countryNames.sort((first, second) => {
+        return first.name.toUpperCase() < second.name.toUpperCase() ? -1 : (first.name.toUpperCase() > second.name.toUpperCase() ? 1 : 0);
+      });
+    })
+  }
+public getPhoneCodes: any =() =>{
+  this.appService.getCountryPhoneCodes().subscribe((data) => {
+    this.countryTelcodes = data
+  })
+}
+}

@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
            
              this.appService.setUserInfoInLocalStorage(apiResponse.data.userDetails)
             
-             if(apiResponse.data.isAdmin === true){
+             if(apiResponse.data.userDetails.isAdmin === true){
                this.router.navigate(['/admin'])
              } else {
                this.router.navigate(['/normaluser'])

@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/toPromise';
+import 'rxjs-compat/add/operator/catch';
+import 'rxjs-compat/add/operator/do';
+import 'rxjs-compat/add/operator/toPromise';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpErrorResponse, HttpParams } from "@angular/common/http";
 
@@ -14,7 +14,7 @@ import { HttpErrorResponse, HttpParams } from "@angular/common/http";
   providedIn: 'root'
 })
 export class AppService {
-public url : "http://localhost:3000/api/v1/user";
+private url = "/api/v1/user";
 
   constructor(
     public http : HttpClient
@@ -22,7 +22,10 @@ public url : "http://localhost:3000/api/v1/user";
 
 
   public getCountryNames() : Observable<any> {
-    return this.http.get(`${this.url}/allnames`)
+    return this.http.get('./../assets/countryNames.json')
+  }
+  public getCountryPhoneCodes() : Observable<any> {
+    return this.http.get("./../assets/countrPhoneCodes.json")
   }
 
   public setUserInfoInLocalStorage = (data) => {
@@ -73,5 +76,19 @@ public url : "http://localhost:3000/api/v1/user";
 
     return Observable.throw(errorMessage)
 
+  }// edn erroHandler function
+
+  public recovery(data): Observable<any> {
+    const params = new HttpParams()
+    .set('email', data.email)
+    return this.http.post(`${this.url}/recoverymail`, params)
+  } //end recovery function
+
+  public resetPassowrdFromEmail(data) : Observable<any> {
+    const params = new HttpParams()
+    .set('password', data.password)
+    .set('recoveryToken', data.recoveryToken)
+    return this.http.post(`${this.url}/resetpassword`, params)
   }
+
 }

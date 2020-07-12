@@ -7,19 +7,22 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule  } from 'ng6-toastr-notifications';
+import { SetpasswordComponent } from './setpassword/setpassword.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, SignupComponent, ResetpasswordComponent],
   imports: [
     CommonModule,
     BrowserAnimationsModule,
-    ToastrModule .forRoot(),
+    ReactiveFormsModule,
+    ToastrModule.forRoot(),
     FormsModule,
     RouterModule.forChild([
       { path : 'signup', component : SignupComponent },
-      { path :'resetpassword', component : ResetpasswordComponent }
+      { path :'resetpassword', component : ResetpasswordComponent },
+      { path :'resetpassword/:recoveryToken', component : SetpasswordComponent }
     ])
-  ]
+  ],
+  declarations: [LoginComponent, SignupComponent, ResetpasswordComponent, SetpasswordComponent]
 })
 export class UserModule { }
