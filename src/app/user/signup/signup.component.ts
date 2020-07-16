@@ -3,12 +3,14 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { AppService } from './../../app.service';
 import { Router } from '@angular/router';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import countryNames from 'C:/Users/HimRamesh/Desktop/edWisor/FinalProject/MeetingOrganizer-Frontend/meeting-organizer-frontend/src/assets/countryNames.json';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
+
 export class SignupComponent implements OnInit {
 
   public firstName: any;
@@ -19,33 +21,44 @@ export class SignupComponent implements OnInit {
   public mobileNumber: any;
   public isAdmin: any;
   public country: any;
-  
 
-
-  public countryName: any;
-  public countryTelcode: any;
-  public countryNames: any[] = [];
-  public countryTelcodes: any[];
+  public countryName: string[];
+  public countries: any[] = [];
   public countryDetails: any;
-
-
+  public isUser: any;
 
 
   constructor(
     public appService: AppService,
     public router: Router,
-    private toastr: ToastrManager
+    private toastr: ToastrManager,
   ) {
   }
 
   ngOnInit(): void {
-
+    this.getCountries()
   }
 
   public goToSignIn: any = () => {
     this.router.navigate(['/'])
   }
 
+  //start getCountries function
+  public getCountries: any = () => {
+    let data = countryNames
+    let i;
+    for (i in data) {
+      let singleCountry = {
+        name: data[i],
+        code: i
+      }
+      this.countries.push(singleCountry)
+    }
+    this.countries.sort()
+  } //end function
+
+
+  //start signUp function
   public signUpFunction: any = () => {
     if (!this.firstName) {
       this.toastr.warningToastr('enter firstName')
@@ -75,14 +88,16 @@ export class SignupComponent implements OnInit {
         mobileNumber: this.mobileNumber,
         country: this.country,
         uniqueUserName: this.uniqueUserName,
-        isAdmin: this.isAdmin
+        isAdmin: this.isAdmin,
+        isUser: this.isUser
       }
 
-      console.log(data)
+      //console.log(data)
       this.appService.signUpFunction(data)
         .subscribe((apiResponse) => {
 
-          console.log(apiResponse);
+          //console.log(apiResponse);
+
 
           if (apiResponse.status === 200) {
             this.toastr.successToastr('Signup successful');
@@ -100,40 +115,13 @@ export class SignupComponent implements OnInit {
         }, (err) => {
 
           this.toastr.errorToastr('Some error occured');
-          console.log(this.countryNames)
-
         });
     }
   } //end signupFunction
 
-  checkValue(event: any) {
-    this.isAdmin = event
-    //console.log(this.isAdmin);
-  }
-  public onChangeOfCountry() {
-
-    this.countryTelcode = this.countryTelcodes[this.country];
-    this.countryName = this.countryDetails[this.country];
+  selectUser(isAdmin: boolean) {
+    this.isAdmin = isAdmin;
   }
 
-  public getNames: any = () => {
-    this.appService.getCountryNames().subscribe((data) => {
-      this.countryDetails = data
-      for(let x in data){
-        let singleCountry = {
-          name : data[x],
-          code : x
-        }
-        this.countryNames.push(singleCountry)
-      }
-      this.countryNames = this.countryNames.sort((first, second) => {
-        return first.name.toUpperCase() < second.name.toUpperCase() ? -1 : (first.name.toUpperCase() > second.name.toUpperCase() ? 1 : 0);
-      });
-    })
-  }
-public getPhoneCodes: any =() =>{
-  this.appService.getCountryPhoneCodes().subscribe((data) => {
-    this.countryTelcodes = data
-  })
-}
+
 }

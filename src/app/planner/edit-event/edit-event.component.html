@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row" style="text-align:left">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label>Meeting Title</label>
+        <input type="text" name="eventTitle" [(ngModel)]="eventTitle" #title="ngModel" class="form-control"
+          placeholder="Enter Title of the meeting" required>
+      </div>
+
+      <div class="form-group">
+        <label>Place</label>
+        <input type="text" name="place" [(ngModel)]="place" #description="ngModel" class="form-control"
+          placeholder="Enter details about meeting place" required>
+      </div>
+      <div class="form-group">
+        <label>Start Date:</label>
+        <input [(ngModel)]="startDate" name="startDate" class="form-control"
+          placeholder="Enter date and time of meeting" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" required>
+        <owl-date-time #dt1></owl-date-time>
+      </div>
+      <div class="form-group">
+        <label>End Date:</label>
+        <input [(ngModel)]="endDate" name="endDate" class="form-control"
+          placeholder="Enter date and time of meeting" [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" required>
+        <owl-date-time #dt2></owl-date-time>
+      </div>
+      <div class="form-group">
+        <label>User:</label>
+        <h5>{{selectedUser}}</h5>
+      </div>
+      
+        <button style="margin-right: 2rem;" type="submit" class="btn btn-dark" (click)="editEvent()">Schedule a Meeting
+        </button>
+        <button style="margin-left: 2rem;" type="submit" class="btn btn-dark" (click)="goAdminDashBoard()">Go Back
+        </button>
+      
+    </div>
+  </div>
+</div>

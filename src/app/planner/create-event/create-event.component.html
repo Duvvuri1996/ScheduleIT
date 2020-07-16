@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="row" style="text-align:left">
+    <div class="col-md-12">
+
+        <div class="form-group">
+          <label>Meeting Title</label>
+          <input type="text" name="eventTitle" [(ngModel)]="eventTitle" #title="ngModel" class="form-control"
+            placeholder="Enter Title of the meeting" required>
+        </div>
+        <div class="form-group">
+          <label>Place</label>
+          <input type="text" name="place" [(ngModel)]="place" #description="ngModel" class="form-control"
+            placeholder="Enter details about meeting place" required>
+        </div>
+        <div class="form-group">
+          <label>Start Date:</label>
+          <input [(ngModel)]="startDate" name="startDate" class="form-control" placeholder="Enter date and time of meeting"
+            [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" required>
+          <owl-date-time #dt1></owl-date-time>
+        </div>
+        <div class="form-group">
+          <label>End Date:</label>
+          <input [(ngModel)]="endDate" name="endDate" class="form-control" placeholder="Enter date and time of meeting"
+            [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" required>
+          <owl-date-time #dt2></owl-date-time>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <input type="text" id="inputUserName" name="userName" [(ngModel)]="userName" class="form-control"
+              placeholder="Search For User Name">
+            <br>
+            <div class="people-list">
+              <div class="card my-card" id="card-design" *ngFor="let user of allUsersData | filter:fullName">
+
+                <div class="card-body p-2" (click)="onSelectingUser(user)" *ngIf="user.userId != receiverId">
+                  <span class="d-block font-adjust-heading">{{user.fullName}}</span>
+                  <span class="d-block font-adjust-heading">{{user.email}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <h6>Selected User</h6>
+          <div class="card" *ngIf="selectedUser">
+            <div class="card-body">
+              <h5 class="card-title">{{selectedUser.fullName}}</h5>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-default" (click)="createEventForUser()">Schedule a Meeting
+        </button>
+        <button type="submit" class="btn btn-default" (click)="goAdminDashBoard()">Go Back
+        </button>
+    </div>
+  </div>
+</div>

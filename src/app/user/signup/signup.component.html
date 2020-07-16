@@ -55,10 +55,9 @@
     <span>Country: </span>
     <label for="inputCountry" class="sr-only">Country</label>
 
-    <select id="inputCountry" class="form-control" [(ngModel)]="country" class ="form-control" placeholder="Country" (click) = "onChangeOfCountry()">
+    <select id="inputCountry" class="form-control" [(ngModel)]="country" class ="form-control" placeholder="Country">
       <option value="">Select</option>
-      <option value="Afghanistan">{{country}}</option>
-      <option *ngFor = "let country of countryNames" [value] = "country.code" >{{ country.name }}</option>
+      <option *ngFor = "let country of countries" [value] = "country.name" >{{ country.name }}</option>
     </select>
 
     <br>
@@ -97,7 +96,17 @@
 
       <br>
 
-      <input type="checkbox" id="inputIsAdmin" (change)="checkValue(isAdmin?'true':'false')" [(ngModel)]="isAdmin">isAdmin
+      <div class="row">
+        <div class="col-md-4">
+
+          <input type="radio" name="type" value="false" (click)="selectUser(true)"> Admin<br>
+        </div>
+        <div class="col-md-4">
+
+          <input type="radio" name="type" value="2" (click)="selectUser(false)"> User<br>
+        </div>
+
+      </div>
       
 
       <br>

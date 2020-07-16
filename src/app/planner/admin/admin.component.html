@@ -1,1 +1,213 @@
-<p>admin works!</p>
+<ng-template #content let-close="close">
+  <div class="modal-header">
+    <h5 class="modal-title">Meeting Details</h5>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-4">
+                <h5> Topic </h5>
+              </div>
+              <div class="col-8">
+                <h6 class="card-title">{{modalData?.event.eventTitle}} by {{modalData?.event.creatorName}}</h6>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-4">
+                <h5> Participant </h5>
+              </div>
+              <div class="col-8">
+                <h6 class="card-title">{{modalData?.event.userName}}</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">
+                <h5>Date and Time</h5>
+              </div>
+              <div class="col-8">
+                <h6 class="card-title">{{modalData?.event.startDate | date: 'medium'}} -
+                  {{modalData?.event.endDate
+                  | date: 'medium'}}</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">
+                <h5>Location </h5>
+              </div>
+              <div class="col-8">
+                <h6 class="card-title">{{modalData?.event.place}}</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #delete let-close="close">
+  <div class="modal-header">
+    <h5 class="modal-title">Delete Meeting</h5>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h6 class="card-title">Are you sure you want to delete the following meeting?</h6>
+    <h4 class="card-title">{{modalData?.event.eventTitle}}</h4>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn btn-danger" (click)="deleteEvent(modalData?.event);close()">Delete</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="close()">Cancel</button>
+  </div>
+</ng-template>
+
+<ng-template #alert let-close="close">
+  <div class="modal-header">
+    <h5 class="modal-title">Meeting Reminder</h5>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h6 class="card-title">Your meeting <span><i> {{modalData?.event.eventTitle}} </i></span> will start soon!</h6>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success"
+      (click)="modalData?.event.remindMe=true;gentleReminder=true;close()">Snooze</button>
+    <button type="button" class="btn btn-outline-secondary"
+      (click)="modalData?.event.remindMe=false;gentleReminder=true;close()">Dismiss</button>
+  </div>
+</ng-template>
+
+
+<br>
+<div class="container-fluid">
+  <div class="row text-center border-bottom border-info">
+
+    <div class="col-sm-12 col-md-2 col-lg-3 navbar">
+      <h5>Admin Dashboard</h5>
+    </div>
+
+    <div class="col-sm-6 col-md-4 col-lg-4 navbar">
+      <div class="btn-group">
+
+        <button style="margin-right: 10px;" type="button" class="btn btn-light btn-circle" mwlCalendarPreviousView
+          [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
+          Previous
+        </button>
+
+        <h5>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h5>
+
+        <button style="margin-left: 10px;" type="button" class="btn btn-light btn-circle" mwlCalendarNextView
+          [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
+          Next
+        </button>
+
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-md-3 col-lg-3 navbar">
+      <div class="btn-group">
+        <button style="margin-right: 10px;" type="button" class="btn btn-light" mwlCalendarToday
+          [(viewDate)]="viewDate">
+          Today
+        </button>
+
+        <select [(ngModel)]="view" name="view" class="form-control">
+          <option value="month">Month</option>
+          <option value="week">Week</option>
+          <option value="day">Day</option>
+        </select>
+
+      </div>
+    </div>
+    <div class ="row">
+    <div class="col-sm-12 col-md-3 col-lg-2 navbar">
+      <div class="btn-group" role="group" style="float: left;">
+        <button id="button" type = "button" aria-describedby="tooltip">
+          {{adminName ? adminName : 'Admin'}}
+        </button>
+        <div aria-labelledby="button" id="tooltip" type="button" class="btn btn-secondary" data-toggle="tooltip"
+          data-placement="top">
+          <a  (click)="getAdminMeetings(adminId)">View my meetings</a>
+          <br>
+          <a  (click)="sendReminders()">Send Reminders for Todays Meeting</a>
+          <br>
+          <a  (click)="logout()">Sign Out</a>
+        </div>
+      </div>
+    </div>
+    <script>
+      const button = document.querySelector('#button');
+      const tooltip = document.querySelector('#tooltip');
+
+      Popper.createPopper(button, tooltip, {
+        placement: 'right',
+      });
+
+    </script>
+  </div>
+</div>
+
+  <div class="row">
+    <div class="d-none d-sm-none d-md-block col-md-4 border border-info">
+      <br>
+      <h5 class="btn btn-outline-info"> Users </h5>
+      <input type="text" id="inputName" name="fullName" [(ngModel)]="fullName" class="form-control"
+       placeholder="Search For User ">
+      <br>
+      <div class="people-list">
+        <div class="list-group list-group-flush" *ngFor="let user of allUsersData | filter:fullName">
+
+          <a (click)="getUserMeetings(user.userId,user.fullName)"
+            class="list-group-item list-group-item-action" *ngIf="user.userId != adminId">
+            <span>{{user.fullName}} $ {{user.uniqueUserName}}</span>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-sm-12 col-md-8 border border-info">
+
+      <h6 class="text-center">Meetings associated with <span class="text-primary"> {{this.receiverName}}</span></h6>
+
+      <div [ngSwitch]="view" style="height:95vh;overflow-y:scroll">
+        <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+          [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
+          (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+        </mwl-calendar-month-view>
+
+        <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+          (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+        </mwl-calendar-week-view>
+
+        <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+          (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+        </mwl-calendar-day-view>
+
+      </div>
+
+      <div class="fixed-bottom">
+        <div style="float: right;">
+          <button type="button" class="btn btn-dark"  (click)="addNewEvent()">
+            Create Meeting
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

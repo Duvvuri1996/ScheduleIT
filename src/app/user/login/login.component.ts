@@ -23,23 +23,18 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  
   public goToSignUp: any = () => {
-
     this.router.navigate(['/signup']);
-
   } // end goToSignUp
 
+  //start signin function
   public signinFunction: any = () => {
 
     if (!this.email) {
       this.toastr.warningToastr('enter email')
-
-
     } else if (!this.password) {
-
       this.toastr.warningToastr('enter password')
-
-
     } else {
 
       let data = {
@@ -52,8 +47,8 @@ export class LoginComponent implements OnInit {
 
           if (apiResponse.status === 200) {
             console.log(apiResponse)
-
-             Cookie.set('authtoken', apiResponse.data.authToken);
+            
+             Cookie.set('authToken', apiResponse.data.authToken);
             
              Cookie.set('receiverId', apiResponse.data.userDetails.userId);
             
@@ -63,24 +58,22 @@ export class LoginComponent implements OnInit {
             
              if(apiResponse.data.userDetails.isAdmin === true){
                this.router.navigate(['/admin'])
+               //console.log('This works when admin user')
              } else {
                this.router.navigate(['/normaluser'])
+               //console.log('This works when normal user')
              }
-
           } else {
-
             this.toastr.errorToastr(apiResponse.message)
-            console.log(apiResponse.message)
-          
-
+            //console.log(apiResponse.message)
           }
 
         }, (err) => {
           this.toastr.errorToastr('some error occured')
-
+          this.router.navigate(['/servererror'])
         });
 
-    } // end condition
+    } // end signin function
 
   }
 }

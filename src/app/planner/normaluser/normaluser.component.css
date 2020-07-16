@@ -1,0 +1,15 @@
+.button-tooltip{
+    font-size: small;
+    margin-right: 2rem;
+}
+.user{
+    position: relative;
+    margin-left: 18rem;
+}
+h3 {
+    margin: 0 0 10px;
+}
+pre {
+    background-color: #f5f5f5;
+    padding: 15px;
+}
