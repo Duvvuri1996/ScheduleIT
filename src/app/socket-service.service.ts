@@ -16,7 +16,7 @@ import { HttpErrorResponse, HttpParams } from '@angular/common/http';
 })
 export class SocketServiceService {
 
-  private url = "http://localhost:3000";
+  private url = "http://api.scheduleitweb.co";
   private socket;
 
   constructor(public http: HttpClient) {

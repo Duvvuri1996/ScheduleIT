@@ -13,7 +13,7 @@
         "build": {
           "allowedCommonJsDependencies": [
             "rxjs-compat"
-         ],
+          ],
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/meeting-organizer",
@@ -27,26 +27,29 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "~ng-pick-datetime/assets/style/picker.min.css",
-              "C:/Users/HimRamesh/Desktop/edWisor/FinalProject/MeetingOrganizer-Frontend/meeting-organizer-frontend/node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "C:/Users/HimRamesh/Desktop/edWisor/FinalProject/MeetingOrganizer-Frontend/meeting-organizer-frontend/node_modules/ng2-toastr/bundles/ng2-toastr.min.css",
-              "C:/Users/HimRamesh/Desktop/edWisor/FinalProject/MeetingOrganizer-Frontend/meeting-organizer-frontend/node_modules/angular-calendar/css/angular-calendar.css"
+              {
+                "input": "/home/sowmya/ScheduleIt/meeting-organizer-frontend/node_modules/bootstrap/dist/css/bootstrap.min.css"
+              },
+              {
+                "input": "/home/sowmya/ScheduleIt/meeting-organizer-frontend/node_modules/ng2-toastr/bundles/ng2-toastr.min.css"
+              },
+              {
+                "input": "/home/sowmya/ScheduleIt/meeting-organizer-frontend/node_modules/angular-calendar/css/angular-calendar.css"
+              },
+              "src/styles.css"
             ],
             "scripts": [
-              "C:/Users/HimRamesh/Desktop/edWisor/FinalProject/MeetingOrganizer-Frontend/meeting-organizer-frontend/node_modules/jquery/dist/jquery.min.js",
-              "C:/Users/HimRamesh/Desktop/edWisor/FinalProject/MeetingOrganizer-Frontend/meeting-organizer-frontend/node_modules/popper.js/dist/umd/popper.min.js",
-              "C:/Users/HimRamesh/Desktop/edWisor/FinalProject/MeetingOrganizer-Frontend/meeting-organizer-frontend/node_modules/bootstrap/dist/js/bootstrap.min.js"
+              "/home/sowmya/ScheduleIt/meeting-organizer-frontend/node_modules/jquery/dist/jquery.min.js",
+              "/home/sowmya/ScheduleIt/meeting-organizer-frontend/node_modules/popper.js/dist/umd/popper.min.js",
+              "/home/sowmya/ScheduleIt/meeting-organizer-frontend/node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.prod.ts"
+              }],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -55,8 +58,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "budgets": [
-                {
+              "budgets": [{
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
@@ -131,6 +133,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "meeting-organizer"
 }

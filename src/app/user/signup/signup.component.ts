@@ -3,7 +3,7 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { AppService } from './../../app.service';
 import { Router } from '@angular/router';
 import { ToastrManager } from 'ng6-toastr-notifications';
-import countryNames from 'C:/Users/HimRamesh/Desktop/edWisor/FinalProject/MeetingOrganizer-Frontend/meeting-organizer-frontend/src/assets/countryNames.json';
+import countryNames from '/home/sowmya/ScheduleIt/meeting-organizer-frontend/src/assets/countryNames.json';
 
 @Component({
   selector: 'app-signup',
