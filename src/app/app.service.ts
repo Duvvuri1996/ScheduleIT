@@ -19,7 +19,7 @@ import { HttpErrorResponse, HttpParams } from '@angular/common/http';
 export class AppService {
 
 //http://localhost:3000 is declared in proxyConfig file
-private url = "/api/v1";
+private url = "http://api.scheduleitweb.co/api/v1";
 
   constructor(
     public http : HttpClient
