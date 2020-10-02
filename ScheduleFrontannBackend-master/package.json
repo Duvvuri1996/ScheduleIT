@@ -1,0 +1,46 @@
+{
+  "name": "meetingorganizer",
+  "version": "1.0.0",
+  "description": "To organize events",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs": "apidoc -i app/routes/ -o apidoc/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Duvvuri1996/MeetingOrganizer.git"
+  },
+  "author": "Sowmya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Duvvuri1996/MeetingOrganizer/issues"
+  },
+  "homepage": "https://github.com/Duvvuri1996/MeetingOrganizer#readme",
+  "dependencies": {
+    "-": "0.0.1",
+    "apidoc": "^0.23.0",
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "country-json": "^1.1.0",
+    "express": "^4.17.1",
+    "g": "^2.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.27.0",
+    "moment-timezone": "^0.5.31",
+    "mongoose": "^5.9.25",
+    "morgan": "^1.10.0",
+    "node": "^14.5.0",
+    "node-fetch": "^2.6.0",
+    "node-pre-gyp": "^0.15.0",
+    "nodemailer": "^6.4.10",
+    "nodemon": "^2.0.4",
+    "pino": "^6.4.0",
+    "redis": "^3.0.2",
+    "redis-cli": "^1.4.0",
+    "shortid": "^2.2.15",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {}
+}
